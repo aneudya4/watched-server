@@ -18,63 +18,65 @@ const serializeMovies = (movie) => ({
   genres: movie.genres,
 });
 
-watchListRouter.route('/:userId').get((req, res, next) => {
-  WatchListService.getAllFromWatchList(req.app.get('db'), req.params.userId)
-    .then((watchList) => {
-      res.json(watchList.map(serializeMovies));
-    })
-    .catch(next);
-});
+watchListRouter
+  .route('/:userId')
+  .get((req, res, next) => {
+    WatchListService.getAllFromWatchList(req.app.get('db'), req.params.userId)
+      .then((watchList) => {
+        res.json(watchList.map(serializeMovies));
+      })
+      .catch(next);
+  })
+  .post(bodyParser, (req, res, next) => {
+    const {
+      movieId,
+      title,
+      release_date,
+      runtime,
+      status,
+      poster_path,
+      genres,
+      userId,
+    } = req.body;
+    const newMovie = {
+      movie_id: movieId,
+      title,
+      release_date,
+      runtime,
+      status,
+      poster_path,
+      genres,
+      user_id: userId,
+    };
 
-watchListRouter.route('/').post(bodyParser, (req, res, next) => {
-  const {
-    movieId,
-    title,
-    release_date,
-    runtime,
-    status,
-    poster_path,
-    genres,
-    userId,
-  } = req.body;
-  const newMovie = {
-    movieId,
-    title,
-    release_date,
-    runtime,
-    status,
-    poster_path,
-    genres,
-    userId,
-  };
-
-  for (const field of [
-    'movie_id',
-    'title',
-    'release_date',
-    'runtime',
-    'status',
-    'poster_path',
-    'genres',
-  ]) {
-    if (!newMovie[field]) {
-      logger.error(`${field} is required`);
-      return res.status(400).send({
-        error: { message: `'${field}' is required` },
-      });
+    for (const field of [
+      'movie_id',
+      'title',
+      'release_date',
+      'runtime',
+      'status',
+      'poster_path',
+      'genres',
+    ]) {
+      if (!newMovie[field]) {
+        logger.error(`${field} is required`);
+        return res.status(400).send({
+          error: { message: `'${field}' is required` },
+        });
+      }
     }
-  }
 
-  WatchListService.insertMovie(req.app.get('db'), req.body.userId, newMovie)
-    .then((movie) => {
-      logger.info(`movie with id ${movie.id} created.`);
-      res
-        .status(201)
-        .location(path.posix.join(req.originalUrl, `${movie.id}`))
-        .json(serializeMovies(movie));
-    })
-    .catch(next);
-});
+    WatchListService.insertMovie(req.app.get('db'), newMovie)
+      .then((movie) => {
+        logger.info(`movie with id ${movie.id} created.`);
+        res
+          .status(201)
+          .location(path.posix.join(req.originalUrl, `${movie.id}`))
+          .json(serializeMovies(movie));
+      })
+      .catch(next);
+  });
+
 watchListRouter.route('/:id').delete((req, res, next) => {
   const { id } = req.params;
   WatchListService.deleteMovieFromList(req.app.get('db'), id)
