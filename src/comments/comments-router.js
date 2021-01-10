@@ -1,0 +1,91 @@
+const path = require('path');
+const express = require('express');
+const xss = require('xss');
+const logger = require('../logger');
+const commentsService = require('./watchlist-service');
+const commentsRouter = express.Router();
+const bodyParser = express.json();
+
+const serializeMovies = (movie) => ({
+  id: movie.id,
+  userId: Number(movie.user_id),
+  movieId: Number(movie.movie_id),
+  title: xss(movie.title),
+  release_date: xss(movie.release_date),
+  runtime: xss(movie.runtime),
+  status: xss(movie.status),
+  poster_path: xss(movie.poster_path),
+  genres: movie.genres,
+});
+
+commentsRouter
+  .route('/:movieId')
+  .get((req, res, next) => {
+    commentsService
+      .getAllMovieComments(req.app.get('db'), req.params.movieId)
+      .then((watchList) => {
+        res.json(watchList.map(serializeMovies));
+      })
+      .catch(next);
+  })
+  .post(bodyParser, (req, res, next) => {
+    const {
+      movieId,
+      title,
+      release_date,
+      runtime,
+      status,
+      poster_path,
+      genres,
+      userId,
+    } = req.body;
+    const newMovie = {
+      movie_id: movieId,
+      title,
+      release_date,
+      runtime,
+      status,
+      poster_path,
+      genres,
+      user_id: userId,
+    };
+
+    for (const field of [
+      'movie_id',
+      'title',
+      'release_date',
+      'runtime',
+      'status',
+      'poster_path',
+      'genres',
+    ]) {
+      if (!newMovie[field]) {
+        logger.error(`${field} is required`);
+        return res.status(400).send({
+          error: { message: `'${field}' is required` },
+        });
+      }
+    }
+
+    WatchListService.insertMovie(req.app.get('db'), newMovie)
+      .then((movie) => {
+        logger.info(`movie with id ${movie.id} created.`);
+        res
+          .status(201)
+          .location(path.posix.join(req.originalUrl, `${movie.id}`))
+          .json(serializeMovies(movie));
+      })
+      .catch(next);
+  });
+
+commentsRouter.route('/:id').delete((req, res, next) => {
+  const { id } = req.params;
+  WatchListService.deleteMovieFromList(req.app.get('db'), id)
+    .then((numRowsAffected) => {
+      logger.info(`movie with id ${id} deleted.`);
+      res.status(204).end();
+    })
+    .catch(next);
+});
+
+module.exports = commentsRouter;

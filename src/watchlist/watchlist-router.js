@@ -2,7 +2,7 @@ const path = require('path');
 const express = require('express');
 const xss = require('xss');
 const logger = require('../logger');
-const WatchListService = require('./watchlist-service');
+const watchListService = require('./watchlist-service');
 const watchListRouter = express.Router();
 const bodyParser = express.json();
 
@@ -21,7 +21,8 @@ const serializeMovies = (movie) => ({
 watchListRouter
   .route('/:userId')
   .get((req, res, next) => {
-    WatchListService.getAllFromWatchList(req.app.get('db'), req.params.userId)
+    watchListService
+      .getAllFromWatchList(req.app.get('db'), req.params.userId)
       .then((watchList) => {
         res.json(watchList.map(serializeMovies));
       })
@@ -66,7 +67,8 @@ watchListRouter
       }
     }
 
-    WatchListService.insertMovie(req.app.get('db'), newMovie)
+    watchListService
+      .insertMovie(req.app.get('db'), newMovie)
       .then((movie) => {
         logger.info(`movie with id ${movie.id} created.`);
         res
@@ -79,7 +81,8 @@ watchListRouter
 
 watchListRouter.route('/:id').delete((req, res, next) => {
   const { id } = req.params;
-  WatchListService.deleteMovieFromList(req.app.get('db'), id)
+  watchListService
+    .deleteMovieFromList(req.app.get('db'), id)
     .then((numRowsAffected) => {
       logger.info(`movie with id ${id} deleted.`);
       res.status(204).end();

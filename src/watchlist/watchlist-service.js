@@ -13,7 +13,6 @@ const watchListService = {
   },
 
   deleteMovieFromList(knex, id) {
-    console.log(id, 'here mmg');
     return knex('watchlist').where('id', id).delete();
   },
 };
