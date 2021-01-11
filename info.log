@@ -1,2 +1,5 @@
 {"message":"movie with id 3 deleted.","level":"info"}
 {"message":"movie with id 6 created.","level":"info"}
+{"message":"movie with id 3 created.","level":"info"}
+{"message":"movie with id 3 deleted.","level":"info"}
+{"message":"movie with id 3 deleted.","level":"info"}

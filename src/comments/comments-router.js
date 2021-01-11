@@ -2,20 +2,16 @@ const path = require('path');
 const express = require('express');
 const xss = require('xss');
 const logger = require('../logger');
-const commentsService = require('./watchlist-service');
+const commentsService = require('./comments-service');
 const commentsRouter = express.Router();
 const bodyParser = express.json();
 
-const serializeMovies = (movie) => ({
-  id: movie.id,
-  userId: Number(movie.user_id),
-  movieId: Number(movie.movie_id),
-  title: xss(movie.title),
-  release_date: xss(movie.release_date),
-  runtime: xss(movie.runtime),
-  status: xss(movie.status),
-  poster_path: xss(movie.poster_path),
-  genres: movie.genres,
+const serializeComment = (comment) => ({
+  id: comment.id,
+  userId: Number(comment.user_id),
+  movieId: Number(comment.movie_id),
+  display_name: xss(comment.display_name),
+  comment: xss(comment.comment),
 });
 
 commentsRouter
@@ -23,43 +19,23 @@ commentsRouter
   .get((req, res, next) => {
     commentsService
       .getAllMovieComments(req.app.get('db'), req.params.movieId)
-      .then((watchList) => {
-        res.json(watchList.map(serializeMovies));
+      .then((comments) => {
+        console.log(comments);
+        res.json(comments.map(serializeComment));
       })
       .catch(next);
   })
   .post(bodyParser, (req, res, next) => {
-    const {
-      movieId,
-      title,
-      release_date,
-      runtime,
-      status,
-      poster_path,
-      genres,
-      userId,
-    } = req.body;
-    const newMovie = {
+    const { displayName, comment, userId, movieId } = req.body;
+    const newComment = {
       movie_id: movieId,
-      title,
-      release_date,
-      runtime,
-      status,
-      poster_path,
-      genres,
+      display_name: displayName,
+      comment,
       user_id: userId,
     };
 
-    for (const field of [
-      'movie_id',
-      'title',
-      'release_date',
-      'runtime',
-      'status',
-      'poster_path',
-      'genres',
-    ]) {
-      if (!newMovie[field]) {
+    for (const field of ['movie_id', 'display_name', 'comment', 'user_id']) {
+      if (!newComment[field]) {
         logger.error(`${field} is required`);
         return res.status(400).send({
           error: { message: `'${field}' is required` },
@@ -67,20 +43,22 @@ commentsRouter
       }
     }
 
-    WatchListService.insertMovie(req.app.get('db'), newMovie)
-      .then((movie) => {
-        logger.info(`movie with id ${movie.id} created.`);
+    commentsService
+      .insertComment(req.app.get('db'), newComment)
+      .then((comment) => {
+        logger.info(`movie with id ${comment.id} created.`);
         res
           .status(201)
-          .location(path.posix.join(req.originalUrl, `${movie.id}`))
-          .json(serializeMovies(movie));
+          .location(path.posix.join(req.originalUrl, `${comment.id}`))
+          .json(serializeComment(comment));
       })
       .catch(next);
   });
 
-commentsRouter.route('/:id').delete((req, res, next) => {
-  const { id } = req.params;
-  WatchListService.deleteMovieFromList(req.app.get('db'), id)
+commentsRouter.route('/:id/:userId').delete((req, res, next) => {
+  const { id, userId } = req.params;
+  commentsService
+    .deleteCommentFromMovie(req.app.get('db'), id, userId)
     .then((numRowsAffected) => {
       logger.info(`movie with id ${id} deleted.`);
       res.status(204).end();

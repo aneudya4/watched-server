@@ -19,7 +19,7 @@ app.use(cors());
 app.use(helmet());
 app.use(morgan(morganOption));
 
-// app.use('/api/comments', commentsRouter);
+app.use('/api/comments', commentsRouter);
 
 app.use('/api/watchlist', watchlistRouter);
 
