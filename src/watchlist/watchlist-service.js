@@ -12,8 +12,12 @@ const watchListService = {
       });
   },
 
-  deleteMovieFromList(knex, id) {
-    return knex('watchlist').where('id', id).delete();
+  deleteMovieFromList(knex, movieId, userId) {
+    console.log(movieId, userId, 'aqui');
+    return knex('watchlist')
+      .where('movie_id', movieId)
+      .andWhere('user_id', userId)
+      .delete();
   },
 };
 

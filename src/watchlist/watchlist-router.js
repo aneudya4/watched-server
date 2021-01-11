@@ -8,7 +8,7 @@ const bodyParser = express.json();
 
 const serializeMovies = (movie) => ({
   id: movie.id,
-  userId: Number(movie.user_id),
+  userId: xss(movie.user_id),
   movieId: Number(movie.movie_id),
   title: xss(movie.title),
   release_date: xss(movie.release_date),
@@ -49,6 +49,7 @@ watchListRouter
       genres,
       user_id: userId,
     };
+    console.log(newMovie, 'ESTE MMG');
 
     for (const field of [
       'movie_id',
@@ -79,12 +80,12 @@ watchListRouter
       .catch(next);
   });
 
-watchListRouter.route('/:id').delete((req, res, next) => {
-  const { id } = req.params;
+watchListRouter.route('/:movieId/:userId').delete((req, res, next) => {
+  const { movieId, userId } = req.params;
   watchListService
-    .deleteMovieFromList(req.app.get('db'), id)
+    .deleteMovieFromList(req.app.get('db'), movieId, userId)
     .then((numRowsAffected) => {
-      logger.info(`movie with id ${id} deleted.`);
+      logger.info(`movie with id ${movieId} for userId ${userId} deleted.`);
       res.status(204).end();
     })
     .catch(next);

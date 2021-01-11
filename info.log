@@ -3,3 +3,50 @@
 {"message":"movie with id 3 created.","level":"info"}
 {"message":"movie with id 3 deleted.","level":"info"}
 {"message":"movie with id 3 deleted.","level":"info"}
+{"message":"movie_id is required","level":"error"}
+{"message":"movie with id 9 created.","level":"info"}
+{"message":"movie with id 10 created.","level":"info"}
+{"message":"movie with id 577922 deleted.","level":"info"}
+{"message":"movie with id 577922 for userId 323456 deleted.","level":"info"}
+{"message":"movie with id 1 created.","level":"info"}
+{"message":"runtime is required","level":"error"}
+{"message":"runtime is required","level":"error"}
+{"message":"movie with id 2 created.","level":"info"}
+{"message":"runtime is required","level":"error"}
+{"message":"runtime is required","level":"error"}
+{"message":"runtime is required","level":"error"}
+{"message":"runtime is required","level":"error"}
+{"message":"runtime is required","level":"error"}
+{"message":"movie with id 1 created.","level":"info"}
+{"message":"movie with id 2 created.","level":"info"}
+{"message":"movie with id 1 created.","level":"info"}
+{"message":"movie with id 733317 for userId vChg5r8HVcdkmfG5OqhzkO2ojhh2 deleted.","level":"info"}
+{"message":"movie with id 733317 for userId vChg5r8HVcdkmfG5OqhzkO2ojhh2 deleted.","level":"info"}
+{"message":"movie with id 733317 for userId vChg5r8HVcdkmfG5OqhzkO2ojhh2 deleted.","level":"info"}
+{"message":"movie with id 733317 for userId vChg5r8HVcdkmfG5OqhzkO2ojhh2 deleted.","level":"info"}
+{"message":"movie with id 733317 for userId vChg5r8HVcdkmfG5OqhzkO2ojhh2 deleted.","level":"info"}
+{"message":"movie with id 733317 for userId vChg5r8HVcdkmfG5OqhzkO2ojhh2 deleted.","level":"info"}
+{"message":"movie with id 733317 for userId vChg5r8HVcdkmfG5OqhzkO2ojhh2 deleted.","level":"info"}
+{"message":"movie with id 733317 for userId vChg5r8HVcdkmfG5OqhzkO2ojhh2 deleted.","level":"info"}
+{"message":"movie with id 1 created.","level":"info"}
+{"message":"movie with id 733317 for userId vChg5r8HVcdkmfG5OqhzkO2ojhh2 deleted.","level":"info"}
+{"message":"movie with id 2 created.","level":"info"}
+{"message":"movie with id 3 created.","level":"info"}
+{"message":"movie with id 1 created.","level":"info"}
+{"message":"movie with id 733317 for userId vChg5r8HVcdkmfG5OqhzkO2ojhh2 deleted.","level":"info"}
+{"message":"movie with id 2 created.","level":"info"}
+{"message":"movie with id 733317 for userId vChg5r8HVcdkmfG5OqhzkO2ojhh2 deleted.","level":"info"}
+{"message":"movie with id 3 created.","level":"info"}
+{"message":"movie with id 4 created.","level":"info"}
+{"message":"movie with id 5 created.","level":"info"}
+{"message":"movie with id 755812 for userId vChg5r8HVcdkmfG5OqhzkO2ojhh2 deleted.","level":"info"}
+{"message":"movie with id 737568 for userId vChg5r8HVcdkmfG5OqhzkO2ojhh2 deleted.","level":"info"}
+{"message":"movie with id 6 created.","level":"info"}
+{"message":"movie with id 737568 for userId vChg5r8HVcdkmfG5OqhzkO2ojhh2 deleted.","level":"info"}
+{"message":"movie with id 7 created.","level":"info"}
+{"message":"movie with id 737568 for userId vChg5r8HVcdkmfG5OqhzkO2ojhh2 deleted.","level":"info"}
+{"message":"movie with id 8 created.","level":"info"}
+{"message":"movie with id 9 created.","level":"info"}
+{"message":"movie with id 10 created.","level":"info"}
+{"message":"movie with id 11 created.","level":"info"}
+{"message":"movie with id 737568 for userId vChg5r8HVcdkmfG5OqhzkO2ojhh2 deleted.","level":"info"}
