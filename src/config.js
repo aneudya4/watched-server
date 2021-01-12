@@ -1,3 +1,5 @@
+console.log(process.env.DATABASE_URL, 'AQUI AHORA');
+
 module.exports = {
   PORT: process.env.PORT || 8000,
   NODE_ENV: process.env.NODE_ENV || 'development',
