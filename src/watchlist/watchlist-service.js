@@ -1,6 +1,8 @@
 const watchListService = {
   getAllFromWatchList(knex, userId) {
-    return knex.from('watchlist').select('*').where('user_id', userId);
+    const results = knex.from('watchlist').select('*').where('user_id', userId);
+    console.log(results, 'estos');
+    return results;
   },
   insertMovie(knex, newMovie) {
     return knex
