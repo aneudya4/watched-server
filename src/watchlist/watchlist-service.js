@@ -13,7 +13,6 @@ const watchListService = {
   },
 
   deleteMovieFromList(knex, movieId, userId) {
-    console.log(movieId, userId, 'aqui');
     return knex('watchlist')
       .where('movie_id', movieId)
       .andWhere('user_id', userId)
