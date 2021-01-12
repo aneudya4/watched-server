@@ -40,7 +40,7 @@ app.use(function errorHandler(error, req, res, next) {
   let response;
   console.error(NODE_ENV, 'esto');
 
-  if (NODE_ENV === 'production') {
+  if (NODE_ENV === 'development') {
     response = { error: 'Server error!' };
   } else {
     response = { message: error.message, error };
