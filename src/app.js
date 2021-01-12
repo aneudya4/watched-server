@@ -39,7 +39,7 @@ app.use('/api/watchlist', watchlistRouter);
 app.use(function errorHandler(error, req, res, next) {
   let response;
   if (NODE_ENV === 'production') {
-    response = { error: 'Server error' };
+    response = { error: 'Server error!' };
   } else {
     console.error(error);
     response = { message: error.message, error };
