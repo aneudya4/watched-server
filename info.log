@@ -51,3 +51,4 @@
 {"message":"movie with id 11 created.","level":"info"}
 {"message":"movie with id 737568 for userId vChg5r8HVcdkmfG5OqhzkO2ojhh2 deleted.","level":"info"}
 {"message":"Unauthorized request to path: /api/watchlist/vChg5r8HVcdkmfG5OqhzkO2ojhh2","level":"error"}
+{"message":"Unauthorized request to path: /","level":"error"}
