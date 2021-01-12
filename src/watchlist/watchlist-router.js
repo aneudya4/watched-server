@@ -21,6 +21,7 @@ const serializeMovies = (movie) => ({
 watchListRouter
   .route('/:userId')
   .get((req, res, next) => {
+    console.log('GET');
     watchListService
       .getAllFromWatchList(req.app.get('db'), req.params.userId)
       .then((watchList) => {
