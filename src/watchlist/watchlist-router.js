@@ -49,7 +49,6 @@ watchListRouter
       genres,
       user_id: userId,
     };
-    console.log(newMovie, 'ESTE MMG');
 
     for (const field of [
       'movie_id',
