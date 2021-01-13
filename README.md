@@ -1,9 +1,11 @@
-<h1 align="center">Invy API</h1>
+<h1 align="center">BINGE API</h1>
 <h2 align="center">  This is the  API for the binge project!
  </h2>
 <h2 align="center"><a  href="https://vast-ocean-65938.herokuapp.com/">Live Demo</a></h2>
 
 <h2 align="center"><a  href="https://github.com/aneudya4/watched">FrontEnd Repo</a></h2>
+
+<h2 align="center"><a  href="https://aneudy-binge.netlify.app/">Live App</a></h2>
 
 <p align="center">
 <img src="https://img.shields.io/badge/made%20by-aneudya4-blue.svg" >
