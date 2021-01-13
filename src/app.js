@@ -41,6 +41,7 @@ app.use(function errorHandler(error, req, res, next) {
 
   if (NODE_ENV === 'production') {
     response = { error: 'Server error!' };
+    response = { message: error.message, error };
   } else {
     response = { message: error.message, error };
   }
