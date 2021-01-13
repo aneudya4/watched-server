@@ -18,8 +18,6 @@
 
 API Endpoints.
 
-<p>https://stark-coast-96634.herokuapp.com/api/watchlist </p>
-
 <p>
 https://vast-ocean-65938.herokuapp.com/api/watchlist
 </p>
